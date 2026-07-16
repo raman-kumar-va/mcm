@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCM - Smart HOA Management for Small Communities</title>
+    <meta name="description"
+        content="MCM is the HOA management company built specifically for 2–50 unit communities. Get enterprise-grade management scaled exclusively for small associations.">
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           CSS VARIABLES & DESIGN SYSTEM
+        ============================================================ */
+        :root {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: rgba(15, 23, 42, 0.08);
+
+            /* Theme Gradients */
+            --gradient-primary: linear-gradient(135deg, #2872fa 0%, #1559ed 100%);
+            --gradient-accent: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-amber: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-violet: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+
+            /* Theme colors */
+            --color-blue: #2872fa;
+            --color-purple: #7c3aed;
+            --color-emerald: #10b981;
+            --color-amber: #f59e0b;
+
+            /* Typography */
+            --font-display: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+
+            /* Shadows */
+            --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.03);
+            --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 0 1px 1px rgba(15, 23, 42, 0.02);
+            --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.1), 0 0 1px 1px rgba(15, 23, 42, 0.03);
+            --shadow-hover: 0 24px 50px -12px rgba(40, 114, 250, 0.16);
+
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+        }
+
+        /* ============================================================
+           BASE RESET & GLOBAL STYLES
+        ============================================================ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Page backgrounds decoration */
+        .decorations-wrap {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.35;
+            animation: float-decor 15s ease-in-out infinite alternate;
+        }
+
+        .bg-blob-1 {
+            width: 500px;
+            height: 500px;
+            top: -100px;
+            left: -150px;
+            background: radial-gradient(circle, #dbeafe, #e0f2fe);
+        }
+
+        .bg-blob-2 {
+            width: 600px;
+            height: 600px;
+            bottom: 10%;
+            right: -200px;
+            background: radial-gradient(circle, #fae8ff, #f3e8ff);
+            animation-delay: 4s;
+        }
+
+        .bg-blob-3 {
+            width: 400px;
+            height: 400px;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, #ecfdf5, #e0f2fe);
+            animation-delay: 2s;
+        }
+
+        @keyframes float-decor {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+
+            100% {
+                transform: scale(1.1) translate(30px, -30px);
+            }
+        }
+
+        /* Container helper */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Heading Components */
+        .section-header {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--color-blue);
+            background: #eff6ff;
+            border: 1px solid rgba(40, 114, 250, 0.2);
+            padding: 5px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .section-title span {
+            background: linear-gradient(135deg, #2872fa 0%, #0032bd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Buttons Styling */
+        .btn-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(40, 114, 250, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(40, 114, 250, 0.35);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: var(--text-primary);
+            border: 1.5px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: rgba(15, 23, 42, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           HEADER / NAVIGATION
+        ============================================================ */
+        .mcm-header {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text-primary);
+        }
+
+        .logo-area svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--color-blue);
+            stroke-width: 2.5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .nav-links a:hover,
+        .nav-links .active a {
+            color: var(--color-blue);
+        }
+
+        .nav-cta {
+            padding: 10px 22px;
+            font-size: 14px;
+        }
+
+        /* ============================================================
+           FOLD 1 — HERO SECTION
+        ============================================================ */
+        .hero-section {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(9, 13, 22, 0.7) 0%, rgba(9, 13, 22, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 32px;
+        }
+
+        .hero-badge svg {
+            width: 14px;
+            height: 14px;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 6vw, 68px);
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 28px;
+        }
+
+        .hero-title span {
+            color: #60a5fa;
+            /* bright blue */
+        }
+
+        .hero-copy {
+            font-size: clamp(16px, 2vw, 20px);
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-copy p {
+            margin-bottom: 14px;
+        }
+
+        .hero-copy p:first-child {
+            max-width: 680px;
+        }
+
+        .hero-copy p:last-child {
+            max-width: 900px;
+        }
+
+        /* ============================================================
+           FOLD 2 — PROBLEM / OUTCOMES (v3 Flip Cards embedded)
+        ============================================================ */
+        .problems-section {
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* ── 4-COLUMN GRID ── */
+        .fc-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        /* ── FLIP CARD WRAPPER ── */
+        .fc {
+            perspective: 1200px;
+            height: 440px;
+        }
+
+        .fc-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .fc:hover .fc-inner {
+            transform: rotateY(180deg);
+        }
+
+        .fc-side {
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            overflow: hidden;
+        }
+
+        /* FRONT FACE */
+        .fc-front {
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(15, 23, 42, 0.07);
+            box-shadow: 0 6px 24px -4px rgba(15, 23, 42, 0.07);
+        }
+
+        /* Top image half */
+        .fc-top-panel {
+            flex: 0 0 54%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Background image element inside top panel */
+        .fc-top-img {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.7s ease;
+        }
+
+        .fc:hover .fc-top-img {
+            transform: scale(1.08);
+        }
+
+        /* Gradient overlay on top of image */
+        .fc-top-panel::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Per-theme overlay tint */
+        .fc[data-theme="blue"] .fc-top-panel::after {
+            background: linear-gradient(160deg, rgba(40, 114, 250, 0.55) 0%, rgba(21, 89, 237, 0.72) 100%);
+        }
+
+        .fc[data-theme="emerald"] .fc-top-panel::after {
+            background: linear-gradient(160deg, rgba(16, 185, 129, 0.55) 0%, rgba(4, 120, 87, 0.72) 100%);
+        }
+
+        .fc[data-theme="amber"] .fc-top-panel::after {
+            background: linear-gradient(160deg, rgba(245, 158, 11, 0.55) 0%, rgba(180, 83, 9, 0.72) 100%);
+        }
+
+        .fc[data-theme="violet"] .fc-top-panel::after {
+            background: linear-gradient(160deg, rgba(167, 139, 250, 0.55) 0%, rgba(109, 40, 217, 0.72) 100%);
+        }
+
+        .fc-main-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.22);
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+        }
+
+        .fc:hover .fc-main-icon {
+            transform: scale(1.08) rotate(-4deg);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .fc-main-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        /* Bottom white info area */
+        .fc-bottom-panel {
+            flex: 1;
+            padding: 22px 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .fc-cat {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 6px;
+        }
+
+        .fc[data-theme="blue"] .fc-cat {
+            color: var(--color-blue);
+        }
+
+        .fc[data-theme="emerald"] .fc-cat {
+            color: var(--color-emerald);
+        }
+
+        .fc[data-theme="amber"] .fc-cat {
+            color: var(--color-amber);
+        }
+
+        .fc[data-theme="violet"] .fc-cat {
+            color: var(--color-purple);
+        }
+
+        .fc-front-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1.25;
+        }
+
+        .fc-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .fc-hint svg {
+            width: 12px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            animation: nudge 1.6s ease-in-out infinite;
+        }
+
+        @keyframes nudge {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            50% {
+                transform: translateX(4px);
+            }
+        }
+
+        /* BACK FACE */
+        .fc-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            padding: 26px 24px;
+        }
+
+        .fc[data-theme="blue"] .fc-back {
+            background: linear-gradient(150deg, #2872fa 0%, #1559ed 100%);
+        }
+
+        .fc[data-theme="emerald"] .fc-back {
+            background: linear-gradient(150deg, #10b981 0%, #047857 100%);
+        }
+
+        .fc[data-theme="amber"] .fc-back {
+            background: linear-gradient(150deg, #f59e0b 0%, #b45309 100%);
+        }
+
+        .fc[data-theme="violet"] .fc-back {
+            background: linear-gradient(150deg, #a78bfa 0%, #7c3aed 100%);
+        }
+
+        .fc-back-hd {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .fc-back-icon-sm {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .fc-back-icon-sm svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .fc-back-sub {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .fc-back-ttl {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .fc-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .fc-list li {
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .fc-dot {
+            flex-shrink: 0;
+            margin-top: 2px;
+            width: 15px;
+            height: 15px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fc-dot svg {
+            width: 8px;
+            height: 8px;
+            stroke: rgba(255, 255, 255, 0.9);
+            fill: none;
+            stroke-width: 3;
+        }
+
+        .fc-outcome {
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fc-outcome-check {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fc-outcome-check svg {
+            width: 10px;
+            height: 10px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 3;
+        }
+
+        .fc-outcome p {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.35;
+        }
+
+        /* Scroll trigger trigger animation definition */
+        .scroll-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================
+           FOLD 3 — PERSONA SEGMENTATION
+        ============================================================ */
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .persona-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+
+        .persona-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(40, 114, 250, 0.15);
+        }
+
+        .persona-top {
+            margin-bottom: 24px;
+        }
+
+        .persona-num {
+            font-family: var(--font-display);
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--color-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background: #faf5ff;
+            padding: 4px 12px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        /* Option 1: Purple Theme */
+        .persona-card:nth-child(1):hover {
+            border-color: rgba(124, 58, 237, 0.2);
+        }
+
+        .persona-card:nth-child(1) .persona-link {
+            color: var(--color-purple);
+        }
+
+        .persona-card:nth-child(1) .persona-link:hover {
+            border-color: var(--color-purple);
+        }
+
+        /* Option 2: Amber Theme */
+        .persona-card:nth-child(2) .persona-num {
+            color: var(--color-amber);
+            background: #fffbeb;
+        }
+
+        .persona-card:nth-child(2):hover {
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .persona-card:nth-child(2) .persona-link {
+            color: var(--color-amber);
+        }
+
+        .persona-card:nth-child(2) .persona-link:hover {
+            border-color: var(--color-amber);
+        }
+
+        /* Option 3: Emerald Theme */
+        .persona-card:nth-child(3) .persona-num {
+            color: var(--color-emerald);
+            background: #ecfdf5;
+        }
+
+        .persona-card:nth-child(3):hover {
+            border-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .persona-card:nth-child(3) .persona-link {
+            color: var(--color-emerald);
+        }
+
+        .persona-card:nth-child(3) .persona-link:hover {
+            border-color: var(--color-emerald);
+        }
+
+        .persona-title {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .persona-desc {
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .persona-link {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-blue);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 24px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            width: fit-content;
+        }
+
+        .persona-link:hover {
+            border-color: var(--color-blue);
+            gap: 10px;
+        }
+
+        .persona-link svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.8;
+            transition: var(--transition);
+        }
+
+        /* ============================================================
+           FOLD 4 — DIFFERENTIATORS
+        ============================================================ */
+        .diff-section {
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .diff-card {
+            background: var(--bg-page);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            transition: var(--transition);
+        }
+
+        .diff-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(40, 114, 250, 0.1);
+            background: #ffffff;
+            box-shadow: var(--shadow-md);
+        }
+
+        .diff-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .diff-card:hover .diff-icon {
+            background: var(--gradient-primary);
+            border-color: transparent;
+        }
+
+        .diff-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--color-blue);
+            fill: none;
+            stroke-width: 2.2;
+            transition: var(--transition);
+        }
+
+        .diff-card:hover .diff-icon svg {
+            stroke: #ffffff;
+        }
+
+        .diff-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .diff-desc {
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ============================================================
+           FOLD 5 — PRICING
+        ============================================================ */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 44px 36px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--color-blue);
+            transform: scale(1.03);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 1024px) {
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--color-blue);
+            background: #eff6ff;
+            padding: 5px 12px;
+            border-radius: 100px;
+        }
+
+        .pricing-header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+        }
+
+        .pricing-name {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .pricing-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            min-height: 45px;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-top: 24px;
+        }
+
+        .price-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .price-val {
+            font-family: var(--font-display);
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .price-unit {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .pricing-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+            flex: 1;
+        }
+
+        .pricing-features li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .pricing-features li svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--color-blue);
+            stroke-width: 2.8;
+            fill: none;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pricing-card.popular .pricing-features li svg {
+            stroke: var(--color-blue);
+        }
+
+        .pricing-cta {
+            width: 100%;
+        }
+
+        /* ============================================================
+           FOLD 6 — PROCESS
+        ============================================================ */
+        .process-section {
+            background: #f8fafc;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 100px 0 140px 0;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+        }
+
+        .process-header-sticky {
+            position: sticky;
+            top: 120px;
+        }
+
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 28px;
+            background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 40px 36px;
+            position: sticky;
+            z-index: 2;
+            box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* Stacking offsets & Unique Backgrounds */
+        .process-step:nth-child(1) {
+            top: 120px;
+            z-index: 10;
+            background: linear-gradient(145deg, #ffffff 0%, #eff6ff 100%);
+            /* Solid very pale blue tint */
+        }
+
+        .process-step:nth-child(2) {
+            top: 140px;
+            z-index: 11;
+            background: linear-gradient(145deg, #ffffff 0%, #faf5ff 100%);
+            /* Solid very pale purple tint */
+        }
+
+        .process-step:nth-child(3) {
+            top: 160px;
+            z-index: 12;
+            background: linear-gradient(145deg, #ffffff 0%, #fffbeb 100%);
+            /* Solid very pale amber tint */
+        }
+
+        .process-step:nth-child(4) {
+            top: 180px;
+            z-index: 13;
+            background: linear-gradient(145deg, #ffffff 0%, #ecfdf5 100%);
+            /* Solid very pale emerald tint */
+        }
+
+        .process-step:nth-child(5) {
+            top: 200px;
+            z-index: 14;
+            background: linear-gradient(145deg, #ffffff 0%, #fdf2f8 100%);
+            /* Solid very pale rose tint */
+        }
+
+        .process-step:hover {
+            border-color: rgba(40, 114, 250, 0.3);
+        }
+
+        @media (max-width: 900px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .process-header-sticky {
+                position: static;
+            }
+
+            .process-step {
+                position: relative;
+                top: 0 !important;
+                box-shadow: var(--shadow-sm);
+            }
+        }
+
+        .step-num {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--color-blue);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--color-blue);
+            flex-shrink: 0;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .process-step:hover .step-num {
+            background: var(--gradient-primary);
+            color: #ffffff;
+            border-color: transparent;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .step-desc {
+            font-size: 14.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ============================================================
+           CLOSING BANNER
+        ============================================================ */
+        .closing-banner {
+            padding: 100px 0;
+            background-color: #0f172a;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        .closing-banner .bg-blob-closing {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            background: var(--gradient-primary);
+            top: -200px;
+            right: -100px;
+        }
+
+        .closing-container {
+            max-width: 800px;
+            text-align: center;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .closing-title {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .closing-desc {
+            font-size: 17px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .closing-banner .btn-group {
+            justify-content: center;
+        }
+
+        .closing-banner .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .closing-banner .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        .mcm-footer {
+            background: #090d16;
+            color: #94a3b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 0;
+            font-size: 14px;
+        }
+
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .footer-logo svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: var(--color-blue);
+            stroke-width: 2.5;
+        }
+
+        .footer-copy {
+            color: #64748b;
+        }
+
+        /* ============================================================
+           RESPONSIVE STYLES
+        ============================================================ */
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 56px;
+                text-align: center;
+            }
+
+            .hero-badge,
+            .btn-group {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            .fc-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .personas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .process-step {
+                padding: 24px 28px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 70px 0;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .fc-row {
+                grid-template-columns: 1fr;
+            }
+
+            .fc {
+                height: 420px;
+            }
+
+            .process-flow::before {
+                left: 17px;
+            }
+
+            .process-step {
+                gap: 16px;
+                padding: 20px;
+            }
+
+            .step-num {
+                width: 36px;
+                height: 36px;
+                font-size: 13px;
+            }
+        }
+
+
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--color-blue);
+            color: #ffffff;
+            border: none;
+            outline: none;
+            box-shadow: 0 8px 24px rgba(40, 114, 250, 0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(15px);
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        #back-to-top:hover {
+            background: var(--color-purple);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        #back-to-top svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Header Scroll States */
+        .mcm-header.scrolled {
+            height: 70px;
+            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Staggered hero scroll animations */
+        .hero-badge.scroll-item {
+            transition-delay: 0.1s;
+        }
+
+        .hero-title.scroll-item {
+            transition-delay: 0.2s;
+        }
+
+        .hero-copy.scroll-item {
+            transition-delay: 0.3s;
+        }
+
+        .hero-content .btn-group.scroll-item {
+            transition-delay: 0.4s;
+        }
+
+        .hero-visual.scroll-item {
+            transition-delay: 0.5s;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Ambient glows -->
+    <div class="decorations-wrap" aria-hidden="true">
+        <div class="bg-blob bg-blob-1"></div>
+        <div class="bg-blob bg-blob-2"></div>
+        <div class="bg-blob bg-blob-3"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="mcm-header">
+        <div class="container nav-container">
+            <a href="#" class="logo-area">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+                </svg>
+                MCM
+            </a>
+            <ul class="nav-links">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#problems">Services</a></li>
+                <li><a href="#personas">Solutions</a></li>
+                <li><a href="#differentiators">About</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <a href="#proposal" class="btn btn-primary nav-cta">Get a Proposal</a>
+        </div>
+    </header>
+
+    <!-- FOLD 1 — HERO SECTION -->
+    <section class="hero-section">
+        <div class="container hero-grid">
+
+            <h1 class="hero-title scroll-item">
+                Small Communities<br>
+                <span>Smart Management</span>
+            </h1>
+            <div class="hero-copy scroll-item">
+                <p>Most corporate HOA management companies are built for more than 500-unit high-rises, treating small
+                    boards like an afterthought.</p>
+                <p>MCM delivers enterprise-grade management scaled exclusively for 2–50 unit communities. Get the
+                    transparent financials, dedicated manager, and rapid response times your community deserves—backed
+                    by fixed per-unit pricing.</p>
+
+            </div>
+            <div class="btn-group scroll-item">
+                <a href="#proposal" class="btn btn-primary">Get a Proposal</a>
+                <a href="#pricing" class="btn btn-secondary"
+                    style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">See
+                    Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOLD 2 — PROBLEM / OUTCOMES -->
+    <section class="problems-section" id="problems">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Problem / Outcomes</span>
+                <h2 class="section-title">Helping Boards Spend Less Time <span>Managing</span><br>and More Time
+                    <span>Leading</span>
+                </h2>
+                <p class="section-desc">Most board members never expected to manage vendors, review financials, resolve
+                    homeowner concerns, and keep everything running smoothly. That's where we come in. Our HOA property
+                    management support brings these responsibilities into one organized process.</p>
+            </div>
+
+            <div class="fc-row">
+                <!-- Card 1: Financials -->
+                <div class="fc" data-theme="blue">
+                    <div class="fc-inner">
+                        <!-- Front -->
+                        <div class="fc-side fc-front">
+                            <div class="fc-top-panel">
+                                <div class="fc-top-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=700&q=80');">
+                                </div>
+                                <div class="fc-main-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="12" y1="1" x2="12" y2="23" />
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="fc-bottom-panel">
+                                <div>
+                                    <div class="fc-cat">Financials</div>
+                                    <div class="fc-front-title">HOA Accounting &amp; Dues</div>
+                                </div>
+                                <div class="fc-hint">
+                                    Hover to reveal
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="fc-side fc-back">
+                            <div class="fc-back-hd">
+                                <div class="fc-back-icon-sm">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="12" y1="1" x2="12" y2="23" />
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="fc-back-sub">Common Problems</div>
+                                    <div class="fc-back-ttl">Financial Challenges</div>
+                                </div>
+                            </div>
+                            <ul class="fc-list">
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Delinquent HOA dues</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Underfunded Reserve Funds</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Accounting Errors</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Expense Tracking Problems</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Vendor Overcharging</li>
+                            </ul>
+                            <div class="fc-outcome">
+                                <div class="fc-outcome-check"><svg viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></div>
+                                <p>Financial records accurate, organized, and accessible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Clear Communication -->
+                <div class="fc" data-theme="emerald">
+                    <div class="fc-inner">
+                        <!-- Front -->
+                        <div class="fc-side fc-front">
+                            <div class="fc-top-panel">
+                                <div class="fc-top-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=80');">
+                                </div>
+                                <div class="fc-main-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="fc-bottom-panel">
+                                <div>
+                                    <div class="fc-cat">Communication</div>
+                                    <div class="fc-front-title">Clear Communication</div>
+                                </div>
+                                <div class="fc-hint">
+                                    Hover to reveal
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="fc-side fc-back">
+                            <div class="fc-back-hd">
+                                <div class="fc-back-icon-sm">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="fc-back-sub">Common Problems</div>
+                                    <div class="fc-back-ttl">Communication Hurdles</div>
+                                </div>
+                            </div>
+                            <ul class="fc-list">
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Meetings</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>ARC Requests</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Meeting Minutes</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Violations</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Newsletters</li>
+                            </ul>
+                            <div class="fc-outcome">
+                                <div class="fc-outcome-check"><svg viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></div>
+                                <p>Keeps everyone informed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Vendor Coordination -->
+                <div class="fc" data-theme="amber">
+                    <div class="fc-inner">
+                        <!-- Front -->
+                        <div class="fc-side fc-front">
+                            <div class="fc-top-panel">
+                                <div class="fc-top-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=700&q=80');">
+                                </div>
+                                <div class="fc-main-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" />
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="fc-bottom-panel">
+                                <div>
+                                    <div class="fc-cat">Operations</div>
+                                    <div class="fc-front-title">Vendor Coordination</div>
+                                </div>
+                                <div class="fc-hint">
+                                    Hover to reveal
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="fc-side fc-back">
+                            <div class="fc-back-hd">
+                                <div class="fc-back-icon-sm">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" />
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="fc-back-sub">Common Problems</div>
+                                    <div class="fc-back-ttl">Coordination Friction</div>
+                                </div>
+                            </div>
+                            <ul class="fc-list">
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>HOA Scheduling Conflicts</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Poor Contract Management</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Unclear Scope of Work</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Vendor Overcharging</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Lack of Vendor Accountability</li>
+                            </ul>
+                            <div class="fc-outcome">
+                                <div class="fc-outcome-check"><svg viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></div>
+                                <p>We'll help keep things moving.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Board Administration -->
+                <div class="fc" data-theme="violet">
+                    <div class="fc-inner">
+                        <!-- Front -->
+                        <div class="fc-side fc-front">
+                            <div class="fc-top-panel">
+                                <div class="fc-top-img"
+                                    style="background-image: url('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=700&q=80');">
+                                </div>
+                                <div class="fc-main-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                        <line x1="16" y1="13" x2="8" y2="13" />
+                                        <line x1="16" y1="17" x2="8" y2="17" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="fc-bottom-panel">
+                                <div>
+                                    <div class="fc-cat">Administration</div>
+                                    <div class="fc-front-title">Board Administration</div>
+                                </div>
+                                <div class="fc-hint">
+                                    Hover to reveal
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back -->
+                        <div class="fc-side fc-back">
+                            <div class="fc-back-hd">
+                                <div class="fc-back-icon-sm">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                        <polyline points="14 2 14 8 20 8" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="fc-back-sub">Common Problems</div>
+                                    <div class="fc-back-ttl">Admin Overhead</div>
+                                </div>
+                            </div>
+                            <ul class="fc-list">
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Poor HOA Meeting Prep</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>No Standard Meeting Minutes Template</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Disorganized Governing Documents</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Unclear or Outdated Bylaws</li>
+                                <li><span class="fc-dot"><svg viewBox="0 0 24 24">
+                                            <line x1="18" y1="6" x2="6" y2="18" />
+                                            <line x1="6" y1="6" x2="18" y2="18" />
+                                        </svg></span>Unclear Board Responsibilities</li>
+                            </ul>
+                            <div class="fc-outcome">
+                                <div class="fc-outcome-check"><svg viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg></div>
+                                <p>Less paperwork for volunteer board members.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOLD 3 — PERSONA SEGMENTATION -->
+    <section class="personas-section" id="personas">
+        <div class="container">
+            <div class="section-header scroll-item">
+                <span class="section-eyebrow">Solutions</span>
+                <h2 class="section-title">Every Board Comes to Us for a <span>Different Reason</span></h2>
+                <p class="section-desc">Some communities manage everything independently, while others are searching for
+                    a trusted HOA manager or a more reliable community management agency. Some boards may also be
+                    building their management process from the ground up.</p>
+            </div>
+
+            <div class="personas-grid">
+                <!-- Card 1 -->
+                <div class="persona-card scroll-item">
+                    <div class="persona-top">
+                        <span class="persona-num">Option 1</span>
+                        <h3 class="persona-title">Managing Your HOA Yourself?</h3>
+                        <p class="persona-desc">Running a small community often falls on a handful of volunteers. If the
+                            day-to-day work is becoming too much to handle, we'll help take it off your
+                            plate.<br><br>Our approach provides practical support for self-managed boards without taking
+                            away their control. We can step in where you need us most.</p>
+                    </div>
+                    <a href="#proposal" class="persona-link">
+                        Explore Support
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="persona-card scroll-item">
+                    <div class="persona-top">
+                        <span class="persona-num">Option 2</span>
+                        <h3 class="persona-title">Thinking About Switching?</h3>
+                        <p class="persona-desc">If you're dealing with slow responses, unclear financials, or rising
+                            fees, you're not alone. We'll help you understand your options and make a smooth
+                            transition.<br><br>We’ll help your board compare HOA management firms and find a better fit
+                            for your community.</p>
+                    </div>
+                    <a href="#proposal" class="persona-link">
+                        Learn About Switching
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="persona-card scroll-item">
+                    <div class="persona-top">
+                        <span class="persona-num">Option 3</span>
+                        <h3 class="persona-title">Starting a New HOA Board?</h3>
+                        <p class="persona-desc">A new community needs structure, guidance, and clear processes from day
+                            one. We'll help your board build a strong foundation for the future.<br><br>Ensure a
+                            seamless developer transition and robust board setup with experienced managers.</p>
+                    </div>
+                    <a href="#proposal" class="persona-link">
+                        Developer Transition Support
+                        <svg viewBox="0 0 24 24">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOLD 4 — DIFFERENTIATORS -->
+    <section class="diff-section" id="differentiators">
+        <div class="container">
+            <div class="section-header scroll-item">
+                <span class="section-eyebrow">Differentiators</span>
+                <h2 class="section-title">What You'll Notice <span>Working With MCM</span></h2>
+                <p class="section-desc">A good management company shouldn't make your board work harder. </p>
+                <p class="section-desc">From communication and financial reporting to day-to-day support, <br>our goal
+                    is
+                    simple: make running
+                    your community easier.</p>
+            </div>
+
+            <div class="diff-grid">
+                <!-- Card 1 -->
+                <div class="diff-card scroll-item">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="diff-title">You'll Know Who to Call</h3>
+                        <p class="diff-desc">No call centers. No constantly changing points of contact. You'll work with
+                            a dedicated manager who knows your community and understands its priorities.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="diff-card scroll-item">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24">
+                            <line x1="12" y1="1" x2="12" y2="23" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="diff-title">You'll Know Where Your Money Is Going</h3>
+                        <p class="diff-desc">Clear reporting and transparent financials give your board the information
+                            it needs to make confident decisions.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="diff-card scroll-item">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                            <line x1="4" y1="22" x2="4" y2="15" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="diff-title">You'll Get a Plan That Fits Your Community</h3>
+                        <p class="diff-desc">A 4-unit association doesn't need the same approach as a 200-unit
+                            community. Our services and pricing are designed specifically for smaller associations.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="diff-card scroll-item">
+                    <div class="diff-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="diff-title">You'll Stay Because the Service Works</h3>
+                        <p class="diff-desc">We believe long-term relationships are earned through consistent service,
+                            clear communication, and accountability.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOLD 5 — PRICING -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header scroll-item">
+                <span class="section-eyebrow">Pricing</span>
+                <h2 class="section-title">Simple Pricing for <span>Small Communities</span></h2>
+                <p class="section-desc">Most small communities shouldn't have to schedule a sales call just to
+                    understand the cost of management. We believe pricing should be straightforward, easy to understand,
+                    and scaled to the size of your community.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Silver -->
+                <div class="pricing-card scroll-item">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Silver</h3>
+                        <p class="pricing-desc">Financial Management Essentials for self-managed communities.</p>
+                        <div class="price-box">
+                            <span class="price-label">Starting at</span>
+                            <span class="price-val">$14</span>
+                            <span class="price-unit">/unit/mo</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Financial bookkeeping</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>HOA dues collection</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Expense tracking &amp; records</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Monthly financial reporting</li>
+                    </ul>
+                    <a href="#proposal" class="btn btn-secondary pricing-cta">Get Started</a>
+                </div>
+
+                <!-- Gold -->
+                <div class="pricing-card popular scroll-item">
+                    <span class="popular-badge">Most Popular</span>
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Gold</h3>
+                        <p class="pricing-desc">Financial &amp; Administrative support for hands-on partners.</p>
+                        <div class="price-box">
+                            <span class="price-label">Starting at</span>
+                            <span class="price-val">$19</span>
+                            <span class="price-unit">/unit/mo</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg><strong>Everything in Silver</strong></li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Administrative support</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Meeting preparation assistance</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Standard document templates</li>
+                    </ul>
+                    <a href="#proposal" class="btn btn-primary pricing-cta">Get Started</a>
+                </div>
+
+                <!-- Platinum -->
+                <div class="pricing-card scroll-item">
+                    <div class="pricing-header">
+                        <h3 class="pricing-name">Platinum</h3>
+                        <p class="pricing-desc">Complete management support for communities that want us to handle every
+                            detail.</p>
+                        <div class="price-box">
+                            <span class="price-label">Contact us</span>
+                            <span class="price-val">Custom</span>
+                            <span class="price-unit">pricing</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg><strong>Everything in Gold</strong></li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Complete HOA management</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Dedicated manager support</li>
+                        <li><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>Full vendor &amp; admin oversight</li>
+                    </ul>
+                    <a href="#proposal" class="btn btn-secondary pricing-cta">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOLD 6 — PROCESS -->
+    <section class="process-section" id="process">
+        <div class="container process-grid">
+            <div class="process-left">
+                <div class="section-header process-header-sticky scroll-item">
+                    <span class="section-eyebrow">Onboarding Process</span>
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">The Right Support Starts
+                        With<br><span>Understanding Where You Are</span></h2>
+                    <p class="section-desc" style="margin: 0; max-width: 100%; text-align: left;">Whether your board
+                        needs relief, a better management experience, or guidance through a new community launch, we'll
+                        help you take the next step with confidence.</p>
+                </div>
+            </div>
+
+            <div class="process-right">
+                <div class="process-flow">
+                    <!-- Step 1 -->
+                    <div class="process-step scroll-item">
+                        <div class="step-num">01</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Start With A Conversation</h3>
+                            <p class="step-desc">Every community is different. We begin by understanding your board,
+                                your goals, and the challenges you're currently facing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="process-step scroll-item">
+                        <div class="step-num">02</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Create A Plan That Fits Your Community</h3>
+                            <p class="step-desc">Whether you need financial support, administrative help, full-service
+                                management, or guidance through a transition, we'll recommend a level of support that
+                                makes sense for your community.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="process-step scroll-item">
+                        <div class="step-num">03</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Get Onboarded</h3>
+                            <p class="step-desc">We'll gather the information, records, and processes needed to create a
+                                smooth transition experience for both your board and homeowners. Our online community
+                                management services keep records, updates, and communication accessible throughout
+                                onboarding.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="process-step scroll-item">
+                        <div class="step-num">04</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Meet Your Dedicated Manager</h3>
+                            <p class="step-desc">Your community will have a dedicated point of contact who understands
+                                your priorities and helps keep things moving.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 5 -->
+                    <div class="process-step scroll-item">
+                        <div class="step-num">05</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Focus On The Bigger Picture</h3>
+                            <p class="step-desc">With the day-to-day work under control, your board can spend less time
+                                managing tasks and more time making decisions that benefit the community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLOSING BANNER -->
+    <section class="closing-banner" id="proposal">
+        <div class="bg-blob-closing" aria-hidden="true"></div>
+        <div class="container closing-container">
+            <h2 class="closing-title scroll-item">Ready for Smarter Community Management?</h2>
+            <p class="closing-desc scroll-item">No matter where your board is starting from, our goal is the same: help
+                your community stay organized, informed, and supported.</p>
+            <div class="btn-group scroll-item">
+                <a href="#" class="btn btn-primary">Get a Proposal</a>
+                <a href="#pricing" class="btn btn-secondary">See Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mcm-footer scroll-item">
+        <div class="container footer-wrap">
+            <div class="footer-logo">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+                </svg>
+                MCM
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Modern Community Management (MCM). All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Back to Top">
+        <svg viewBox="0 0 24 24">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- STAGGER AND SCROLL SCRIPTS -->
+    <script>
+        // 1. Intersection Observer for Scroll Animations
+        const scrollItems = document.querySelectorAll('.scroll-item, .fc');
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    scrollObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        scrollItems.forEach(item => scrollObserver.observe(item));
+
+        // 2. Scroll Indicators, Header states & Back to Top behavior
+        const header = document.querySelector('.mcm-header');
+        const backToTopBtn = document.getElementById('back-to-top');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const sections = document.querySelectorAll('section[id]');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+
+
+            // Header state change
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            // Back to Top Button toggle
+            if (scrollTop > 400) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+
+            // Active Nav link highlight on scroll
+            let currentSectionId = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120; // offset header height
+                const sectionHeight = section.offsetHeight;
+                if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
+                    currentSectionId = section.getAttribute('id');
+                }
+            });
+
+            if (currentSectionId) {
+                navLinks.forEach(link => {
+                    link.parentElement.classList.remove('active');
+                    if (link.getAttribute('href') === `#${currentSectionId}`) {
+                        link.parentElement.classList.add('active');
+                    }
+                });
+            } else if (scrollTop < 200) {
+                // If back at the top, highlight home
+                navLinks.forEach(link => {
+                    link.parentElement.classList.remove('active');
+                });
+                const firstNavLi = document.querySelector('.nav-links li:first-child');
+                if (firstNavLi) firstNavLi.classList.add('active');
+            }
+        });
+
+        // 3. Smooth scrolling for back to top button
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>
