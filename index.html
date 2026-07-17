@@ -159,7 +159,7 @@
         /* Section Heading Components */
         .section-header {
             text-align: center;
-            max-width: 1000px;
+            max-width: 1050px;
             margin: 0 auto 60px;
         }
 
@@ -319,7 +319,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000');
+            z-index: 20;
+            background-image: url('assets/heroBanner.jpeg');
             background-size: cover;
             background-position: center;
             padding: 80px 0;
@@ -330,7 +331,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(9, 13, 22, 0.7) 0%, rgba(9, 13, 22, 0.85) 100%);
+            background: linear-gradient(to bottom, rgba(9, 13, 22, 0.6) 0%, rgba(9, 13, 22, 0.8) 100%);
             z-index: 1;
         }
 
@@ -771,95 +772,114 @@
         /* ============================================================
            FOLD 3 — PERSONA SEGMENTATION
         ============================================================ */
+        .personas-section {
+            height: 300vh;
+            /* Scroll space for the sticky effect */
+            position: relative;
+        }
+
+        .personas-section .container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .personas-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            justify-content: center;
             gap: 30px;
+            align-items: center;
+            min-height: 500px;
         }
 
         .persona-card {
-            background: #ffffff;
-            border: 1px solid var(--border-color);
+            background: var(--color-blue, #2872fa);
+            /* Blue */
+            border: 1px solid transparent;
             border-radius: var(--radius-lg);
-            padding: 40px 32px;
+            padding: 40px 32px 44px 32px;
             box-shadow: var(--shadow-md);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: var(--transition);
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 350px;
+            /* Fixed width prevents text reflow */
+            height: 180px;
+            /* Small initially, heading only */
+            overflow: hidden;
+            position: relative;
         }
 
-        .persona-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(40, 114, 250, 0.15);
+        .persona-card.active {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+            z-index: 10;
         }
 
         .persona-top {
-            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
         }
 
         .persona-num {
             font-family: var(--font-display);
             font-size: 12px;
             font-weight: 800;
-            color: var(--color-purple);
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            background: #faf5ff;
             padding: 4px 12px;
             border-radius: 100px;
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
+            transition: margin-bottom 0.4s ease;
         }
 
-        /* Option 1: Purple Theme */
-        .persona-card:nth-child(1):hover {
-            border-color: rgba(124, 58, 237, 0.2);
+        .persona-card:nth-child(1) {
+            background-color: #2872fa;
+            background-image: linear-gradient(rgba(40, 114, 250, 0.8), rgba(40, 114, 250, 0.9)), url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=600&h=800');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: normal;
         }
 
-        .persona-card:nth-child(1) .persona-link {
-            color: var(--color-purple);
+        .persona-card:nth-child(1) .persona-num {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .persona-card:nth-child(1) .persona-link:hover {
-            border-color: var(--color-purple);
+        .persona-card:nth-child(2) {
+            background-color: #10b981;
+            background-image: linear-gradient(rgba(16, 185, 129, 0.85), rgba(16, 185, 129, 0.95)), url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=600&h=800');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: normal;
         }
 
-        /* Option 2: Amber Theme */
         .persona-card:nth-child(2) .persona-num {
-            color: var(--color-amber);
-            background: #fffbeb;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .persona-card:nth-child(2):hover {
-            border-color: rgba(245, 158, 11, 0.2);
+        .persona-card:nth-child(3) {
+            background-color: #f59e0b;
+            background-image: linear-gradient(rgba(245, 158, 11, 0.85), rgba(245, 158, 11, 0.95)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=600&h=800');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: normal;
         }
 
-        .persona-card:nth-child(2) .persona-link {
-            color: var(--color-amber);
-        }
-
-        .persona-card:nth-child(2) .persona-link:hover {
-            border-color: var(--color-amber);
-        }
-
-        /* Option 3: Emerald Theme */
         .persona-card:nth-child(3) .persona-num {
-            color: var(--color-emerald);
-            background: #ecfdf5;
-        }
-
-        .persona-card:nth-child(3):hover {
-            border-color: rgba(16, 185, 129, 0.2);
-        }
-
-        .persona-card:nth-child(3) .persona-link {
-            color: var(--color-emerald);
-        }
-
-        .persona-card:nth-child(3) .persona-link:hover {
-            border-color: var(--color-emerald);
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
         }
 
         .persona-title {
@@ -868,21 +888,50 @@
             font-weight: 800;
             letter-spacing: -0.01em;
             line-height: 1.3;
-            color: var(--text-primary);
-            margin-bottom: 16px;
+            color: #ffffff;
+            margin-bottom: 0;
+            transition: margin-bottom 0.4s ease;
+        }
+
+        .persona-card.active .persona-title {
+            margin-bottom: 20px;
         }
 
         .persona-desc {
             font-size: 14.5px;
-            color: var(--text-secondary);
+            color: #ffffff;
             line-height: 1.6;
+            opacity: 0;
+            max-height: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(20px);
+        }
+
+        .persona-card.active .persona-desc {
+            opacity: 1;
+            max-height: 450px;
+            transform: translateY(0);
+        }
+
+        .persona-card:nth-child(1).active {
+            border-color: rgba(124, 58, 237, 0.4);
+            height: 560px;
+        }
+
+        .persona-card:nth-child(2).active {
+            border-color: rgba(245, 158, 11, 0.4);
+            height: 500px;
+        }
+
+        .persona-card:nth-child(3).active {
+            border-color: rgba(16, 185, 129, 0.4);
+            height: 430px;
         }
 
         .persona-link {
             font-family: var(--font-display);
             font-size: 14px;
             font-weight: 700;
-            color: var(--color-blue);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -890,11 +939,13 @@
             border-bottom: 2px solid transparent;
             padding-bottom: 2px;
             width: fit-content;
+            color: #ffffff;
+            opacity: 0;
+            transition: all 0.4s ease;
         }
 
-        .persona-link:hover {
-            border-color: var(--color-blue);
-            gap: 10px;
+        .persona-card.active .persona-link {
+            opacity: 1;
         }
 
         .persona-link svg {
@@ -1523,6 +1574,165 @@
         .hero-visual.scroll-item {
             transition-delay: 0.5s;
         }
+
+        /* ============================================================
+           STATS BANNER — Compact Dark Pill Bar
+        ============================================================ */
+        .stats-banner-wrapper {
+            position: absolute;
+            bottom: -36px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .stats-banner {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-radius: 100px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            position: relative;
+            flex: 1;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(15, 23, 42, 0.03);
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 22%;
+            height: 56%;
+            width: 1px;
+            background: rgba(15, 23, 42, 0.08);
+        }
+
+        .stat-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .stat-dot.blue {
+            background: #60a5fa;
+            box-shadow: 0 0 8px rgba(96, 165, 250, 0.7);
+        }
+
+        .stat-dot.green {
+            background: #34d399;
+            box-shadow: 0 0 8px rgba(52, 211, 153, 0.7);
+        }
+
+        .stat-dot.amber {
+            background: #fbbf24;
+            box-shadow: 0 0 8px rgba(251, 191, 36, 0.7);
+        }
+
+        .stat-dot.violet {
+            background: #a78bfa;
+            box-shadow: 0 0 8px rgba(167, 139, 250, 0.7);
+        }
+
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-num-wrapper {
+            display: flex;
+            align-items: baseline;
+            gap: 1px;
+            line-height: 1;
+        }
+
+        .stat-num {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1;
+        }
+
+        .stat-plus {
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 800;
+            color: rgba(15, 23, 42, 0.6);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(15, 23, 42, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .stats-banner {
+                border-radius: var(--radius-lg);
+                flex-wrap: wrap;
+                padding: 8px 16px;
+            }
+
+            .stat-item {
+                flex: 1 1 45%;
+                padding: 14px 16px;
+                justify-content: flex-start;
+            }
+
+            .stat-item:nth-child(2)::after,
+            .stat-item:nth-child(4)::after {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .stats-banner-wrapper {
+                margin-top: -20px;
+            }
+
+            .stats-banner {
+                border-radius: var(--radius-md);
+                flex-direction: column;
+                padding: 8px 0;
+            }
+
+            .stat-item {
+                flex: none;
+                width: 100%;
+                padding: 12px 24px;
+                border-radius: 0;
+            }
+
+            .stat-item:not(:last-child)::after {
+                top: auto;
+                bottom: 0;
+                left: 24px;
+                right: 24px;
+                width: auto;
+                height: 1px;
+            }
+        }
     </style>
 </head>
 
@@ -1536,26 +1746,7 @@
         <div class="bg-blob bg-blob-3"></div>
     </div>
 
-    <!-- Navigation Header -->
-    <header class="mcm-header">
-        <div class="container nav-container">
-            <a href="#" class="logo-area">
-                <svg viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-                </svg>
-                MCM
-            </a>
-            <ul class="nav-links">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#problems">Services</a></li>
-                <li><a href="#personas">Solutions</a></li>
-                <li><a href="#differentiators">About</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-            </ul>
-            <a href="#proposal" class="btn btn-primary nav-cta">Get a Proposal</a>
-        </div>
-    </header>
+
 
     <!-- FOLD 1 — HERO SECTION -->
     <section class="hero-section">
@@ -1566,20 +1757,63 @@
                 <span>Smart Management</span>
             </h1>
             <div class="hero-copy scroll-item">
-                <p>Most corporate HOA management companies are built for more than 500-unit high-rises, treating small
-                    boards like an afterthought.</p>
-                <p>MCM delivers enterprise-grade management scaled exclusively for 2–50 unit communities. Get the
-                    transparent financials, dedicated manager, and rapid response times your community deserves—backed
-                    by fixed per-unit pricing.</p>
+                <p>Most HOA management companies cater to more than 300 to 500-units, treating small boards like an
+                    afterthought.</p>
+                <p>Built exclusively for 2-50 unit communities, MCM delivers enterprise-grade HOA management with the
+                    hands-on support small boards need and the transparent fixed per-unit pricing they deserve.</p>
 
             </div>
             <div class="btn-group scroll-item">
-                <a href="#proposal" class="btn btn-primary">Get a Proposal</a>
+                <a href="https://moderncm.org/contact-us/" class="btn btn-primary">Get a Proposal</a>
                 <a href="#pricing" class="btn btn-secondary"
                     style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: white;">See
                     Pricing</a>
             </div>
         </div>
+
+        <!-- STATS BANNER -->
+        <div class="stats-banner-wrapper">
+        <div class="container">
+            <div class="stats-banner scroll-item">
+                <div class="stat-item">
+                    <span class="stat-dot blue"></span>
+                    <div class="stat-text">
+                        <div class="stat-num-wrapper">
+                            <span class="stat-num" data-target="3500">0</span><span class="stat-plus">+</span>
+                        </div>
+                        <span class="stat-label">Homeowners Served</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-dot green"></span>
+                    <div class="stat-text">
+                        <div class="stat-num-wrapper">
+                            <span class="stat-num" data-target="7">0</span>
+                        </div>
+                        <span class="stat-label">Regional Offices</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-dot amber"></span>
+                    <div class="stat-text">
+                        <div class="stat-num-wrapper">
+                            <span class="stat-num" data-target="250">0</span><span class="stat-plus">+</span>
+                        </div>
+                        <span class="stat-label">HOAs Managed</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-dot violet"></span>
+                    <div class="stat-text">
+                        <div class="stat-num-wrapper">
+                            <span class="stat-num" data-target="7">0</span>
+                        </div>
+                        <span class="stat-label">Years in Business</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </section>
 
     <!-- FOLD 2 — PROBLEM / OUTCOMES -->
@@ -1590,9 +1824,10 @@
                 <h2 class="section-title">Helping Boards Spend Less Time <span>Managing</span><br>and More Time
                     <span>Leading</span>
                 </h2>
-                <p class="section-desc">Most board members never expected to manage vendors, review financials, resolve
-                    homeowner concerns, and keep everything running smoothly. That's where we come in. Our HOA property
-                    management support brings these responsibilities into one organized process.</p>
+                <p class="section-desc">Most board members step up because they care. But between full-time jobs,
+                    family, and daily life, managing vendors, reviewing
+                    financials, and fielding complaints quickly turns into a grueling second career.</p>
+                <p class="section-desc" style="margin-top: 5px;">That’s where we come in.</p>
             </div>
 
             <div class="fc-row">
@@ -1678,7 +1913,7 @@
                         <div class="fc-side fc-front">
                             <div class="fc-top-panel">
                                 <div class="fc-top-img"
-                                    style="background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=80');">
+                                    style="background-image: url('assets/ClearCommunication.jpeg');">
                                 </div>
                                 <div class="fc-main-icon">
                                     <svg viewBox="0 0 24 24">
@@ -1720,11 +1955,11 @@
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>ARC Requests</li>
+                                        </svg></span>Architectural Review Committee Requests</li>
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>HOA Meeting Minutes</li>
+                                        </svg></span>HOA Meeting Minutes Template</li>
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -1732,7 +1967,7 @@
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>HOA Newsletters</li>
+                                        </svg></span>HOA Announcements</li>
                             </ul>
                             <div class="fc-outcome">
                                 <div class="fc-outcome-check"><svg viewBox="0 0 24 24">
@@ -1826,7 +2061,7 @@
                         <div class="fc-side fc-front">
                             <div class="fc-top-panel">
                                 <div class="fc-top-img"
-                                    style="background-image: url('https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=700&q=80');">
+                                    style="background-image: url('assets/BoardAdministration.jpeg');">
                                 </div>
                                 <div class="fc-main-icon">
                                     <svg viewBox="0 0 24 24">
@@ -1868,23 +2103,23 @@
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>Poor HOA Meeting Prep</li>
+                                        </svg></span>Poor HOA Meeting Preparation</li>
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>No Standard Meeting Minutes Template</li>
+                                        </svg></span>No Standard HOA Meeting Minutes Template</li>
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>Disorganized Governing Documents</li>
+                                        </svg></span>Disorganized HOA Governing Documents</li>
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>Unclear or Outdated Bylaws</li>
+                                        </svg></span>Unclear or Outdated HOA Bylaws</li>
                                 <li><span class="fc-dot"><svg viewBox="0 0 24 24">
                                             <line x1="18" y1="6" x2="6" y2="18" />
                                             <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg></span>Unclear Board Responsibilities</li>
+                                        </svg></span>Unclear HOA Board Member Responsibilities</li>
                             </ul>
                             <div class="fc-outcome">
                                 <div class="fc-outcome-check"><svg viewBox="0 0 24 24">
@@ -1918,53 +2153,37 @@
                         <h3 class="persona-title">Managing Your HOA Yourself?</h3>
                         <p class="persona-desc">Running a small community often falls on a handful of volunteers. If the
                             day-to-day work is becoming too much to handle, we'll help take it off your
-                            plate.<br><br>Our approach provides practical support for self-managed boards without taking
-                            away their control. We can step in where you need us most.</p>
+                            plate.<br><br>Our approach to association management provides practical support for
+                            self-managed
+                            boards without taking away their control.<br><br>Whether you need complete home owners
+                            association management or flexible property management for HOA communities, we can step in
+                            where your board needs us most.</p>
                     </div>
-                    <a href="#proposal" class="persona-link">
-                        Explore Support
-                        <svg viewBox="0 0 24 24">
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                            <polyline points="12 5 19 12 12 19" />
-                        </svg>
-                    </a>
                 </div>
 
                 <!-- Card 2 -->
                 <div class="persona-card scroll-item">
                     <div class="persona-top">
                         <span class="persona-num">Option 2</span>
-                        <h3 class="persona-title">Thinking About Switching?</h3>
+                        <h3 class="persona-title">Thinking About Switching Management Companies?</h3>
                         <p class="persona-desc">If you're dealing with slow responses, unclear financials, or rising
                             fees, you're not alone. We'll help you understand your options and make a smooth
-                            transition.<br><br>We’ll help your board compare HOA management firms and find a better fit
-                            for your community.</p>
+                            transition.<br><br>We'll handle the entire transition process, coordinating records,
+                            financials, vendor information, and board communications to make switching management
+                            companies as seamless as possible.</p>
                     </div>
-                    <a href="#proposal" class="persona-link">
-                        Learn About Switching
-                        <svg viewBox="0 0 24 24">
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                            <polyline points="12 5 19 12 12 19" />
-                        </svg>
-                    </a>
                 </div>
 
                 <!-- Card 3 -->
                 <div class="persona-card scroll-item">
                     <div class="persona-top">
                         <span class="persona-num">Option 3</span>
-                        <h3 class="persona-title">Starting a New HOA Board?</h3>
-                        <p class="persona-desc">A new community needs structure, guidance, and clear processes from day
-                            one. We'll help your board build a strong foundation for the future.<br><br>Ensure a
-                            seamless developer transition and robust board setup with experienced managers.</p>
+                        <h3 class="persona-title">Transitioning from Developer to HOA?</h3>
+                        <p class="persona-desc">A newly built community needs more than good intentions. It needs the
+                            right structure, governance, financial processes, and operational support from day
+                            one.<br><br>MCM helps boards navigate developer turnover, establish clear procedures, and
+                            build a strong foundation for long-term success.</p>
                     </div>
-                    <a href="#proposal" class="persona-link">
-                        Developer Transition Support
-                        <svg viewBox="0 0 24 24">
-                            <line x1="5" y1="12" x2="19" y2="12" />
-                            <polyline points="12 5 19 12 12 19" />
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>
@@ -1975,12 +2194,12 @@
         <div class="container">
             <div class="section-header scroll-item">
                 <span class="section-eyebrow">Differentiators</span>
-                <h2 class="section-title">What You'll Notice <span>Working With MCM</span></h2>
-                <p class="section-desc">A good management company shouldn't make your board work harder. </p>
-                <p class="section-desc">From communication and financial reporting to day-to-day support, <br>our goal
-                    is
-                    simple: make running
-                    your community easier.</p>
+                <h2 class="section-title">The MCM Experience: <span>Management Without the Friction</span></h2>
+                <p class="section-desc">Let’s be honest: a management company shouldn’t make your board work harder.</p>
+                <p class="section-desc">We built MCM because small communities are tired of chasing down unresponsive
+                    managers and squinting at confusing balance sheets.</p>
+                <p class="section-desc">Our goal is for you to stop worrying about the HOA and actually enjoy living in
+                    your neighborhood.</p>
             </div>
 
             <div class="diff-grid">
@@ -2009,8 +2228,9 @@
                     </div>
                     <div>
                         <h3 class="diff-title">You'll Know Where Your Money Is Going</h3>
-                        <p class="diff-desc">Clear reporting and transparent financials give your board the information
-                            it needs to make confident decisions.</p>
+                        <p class="diff-desc">Monthly board packets bring together financial reports, community updates,
+                            and key action items, giving your board the information it needs to make confident
+                            decisions.</p>
                     </div>
                 </div>
 
@@ -2023,7 +2243,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="diff-title">You'll Get a Plan That Fits Your Community</h3>
+                        <h3 class="diff-title">You'll Get a Management Plan That Fits Your Community</h3>
                         <p class="diff-desc">A 4-unit association doesn't need the same approach as a 200-unit
                             community. Our services and pricing are designed specifically for smaller associations.</p>
                     </div>
@@ -2048,102 +2268,508 @@
     </section>
 
     <!-- FOLD 5 — PRICING -->
-    <section class="pricing-section" id="pricing">
-        <div class="container">
-            <div class="section-header scroll-item">
-                <span class="section-eyebrow">Pricing</span>
-                <h2 class="section-title">Simple Pricing for <span>Small Communities</span></h2>
-                <p class="section-desc">Most small communities shouldn't have to schedule a sales call just to
-                    understand the cost of management. We believe pricing should be straightforward, easy to understand,
-                    and scaled to the size of your community.</p>
+    <!-- FOLD 5 — PRICING -->
+    <section class="pricing-v3-section" id="pricing">
+        <style>
+            .pricing-v3-section {
+                background-color: #f4f6f9;
+                padding: 100px 20px;
+                font-family: var(--font-body);
+                color: #1e293b;
+            }
+
+            .pricing-v3-header {
+                text-align: center;
+                margin-bottom: 60px;
+            }
+
+            .pricing-v3-header h2 {
+                font-family: var(--font-display);
+                font-size: 42px;
+                font-weight: 900;
+                color: #1d4ed8;
+                margin-bottom: 12px;
+            }
+
+            .pricing-v3-header p {
+                font-size: 18px;
+                color: #475569;
+                font-weight: 500;
+            }
+
+            .pricing-v3-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 30px;
+                max-width: 1100px;
+                margin: 0 auto;
+            }
+
+            @media (min-width: 1024px) {
+                .pricing-v3-grid {
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
+
+            .pricing-v3-card {
+                background: #ffffff;
+                border-radius: 16px;
+                padding: 40px 32px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+                display: flex;
+                flex-direction: column;
+                position: relative;
+                border-top: 5px solid #1d4ed8;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .pricing-v3-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            }
+
+            /* Distinct colors for Silver, Gold, and Platinum */
+            .pricing-v3-card.silver {
+                border-top-color: #94a3b8;
+                /* Slate / Silver */
+            }
+
+            .pricing-v3-card.silver .pricing-v3-btn {
+                border-color: #64748b;
+                color: #64748b;
+            }
+
+            .pricing-v3-card.silver .pricing-v3-btn:hover {
+                background: #64748b;
+                color: #ffffff;
+            }
+
+            .pricing-v3-card.silver .pricing-v3-icon.check {
+                background: #f1f5f9;
+                color: #64748b;
+            }
+
+            .pricing-v3-card.gold {
+                border-top-color: #d97706;
+                /* Gold / Amber */
+            }
+
+            .pricing-v3-card.gold .pricing-v3-badge {
+                background: #d97706;
+            }
+
+            .pricing-v3-card.gold .pricing-v3-btn {
+                border-color: #d97706;
+                color: #d97706;
+            }
+
+            .pricing-v3-card.gold .pricing-v3-btn:hover {
+                background: #d97706;
+                color: #ffffff;
+            }
+
+            .pricing-v3-card.gold .pricing-v3-icon.check {
+                background: #fef3c7;
+                color: #d97706;
+            }
+
+            .pricing-v3-card.gold .pricing-v3-tagline {
+                color: #d97706;
+            }
+
+            .pricing-v3-card.platinum {
+                border-top-color: #4f46e5;
+                /* Platinum / Indigo */
+            }
+
+            .pricing-v3-card.platinum .pricing-v3-btn {
+                border-color: #4f46e5;
+                color: #4f46e5;
+            }
+
+            .pricing-v3-card.platinum .pricing-v3-btn:hover {
+                background: #4f46e5;
+                color: #ffffff;
+            }
+
+            .pricing-v3-card.platinum .pricing-v3-icon.check {
+                background: #e0e7ff;
+                color: #4f46e5;
+            }
+
+            .pricing-v3-badge {
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                background: #3b82f6;
+                color: #ffffff;
+                font-size: 10px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                padding: 6px 12px;
+                border-radius: 100px;
+            }
+
+            .pricing-v3-name {
+                font-family: var(--font-display);
+                font-size: 24px;
+                font-weight: 800;
+                color: #0f172a;
+                margin-bottom: 6px;
+            }
+
+            .pricing-v3-tagline {
+                font-size: 13px;
+                color: #2563eb;
+                font-weight: 600;
+                margin-bottom: 16px;
+                min-height: 20px;
+            }
+
+            .pricing-v3-price-box {
+                display: flex;
+                align-items: baseline;
+                gap: 6px;
+                margin-bottom: 16px;
+            }
+
+            .pricing-v3-price {
+                font-family: var(--font-display);
+                font-size: 42px;
+                font-weight: 900;
+                color: #0f172a;
+                line-height: 1;
+            }
+
+            .pricing-v3-unit {
+                font-size: 13px;
+                color: #64748b;
+                font-weight: 500;
+            }
+
+            .pricing-v3-desc {
+                font-size: 13px;
+                color: #64748b;
+                line-height: 1.6;
+                margin-bottom: 24px;
+                padding-bottom: 24px;
+                border-bottom: 1px solid #e2e8f0;
+                min-height: 80px;
+            }
+
+            .pricing-v3-features {
+                list-style: none;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                margin-bottom: 32px;
+            }
+
+            .pricing-v3-feature {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                font-size: 13px;
+                font-weight: 500;
+                line-height: 1.4;
+                color: #334155;
+            }
+
+            .pricing-v3-feature.disabled {
+                color: #94a3b8;
+            }
+
+            .pricing-v3-icon {
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+
+            .pricing-v3-icon.check {
+                background: #dcfce7;
+                color: #16a34a;
+            }
+
+            .pricing-v3-icon.cross {
+                background: #fee2e2;
+                color: #ef4444;
+            }
+
+            .pricing-v3-icon svg {
+                width: 10px;
+                height: 10px;
+                stroke: currentColor;
+                stroke-width: 3;
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            .pricing-v3-btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                padding: 12px 20px;
+                border-radius: 10px;
+                font-weight: 700;
+                font-size: 14px;
+                text-decoration: none;
+                transition: all 0.2s ease;
+                border: 1.5px solid #2563eb;
+                color: #2563eb;
+                background: transparent;
+            }
+
+            .pricing-v3-btn:hover {
+                background: #2563eb;
+                color: #ffffff;
+            }
+        </style>
+
+        <div class="pricing-v3-header scroll-item">
+            <h2>Simple Pricing for Small Communities</h2>
+            <p style="margin-bottom: 12px; max-width: 880px; margin-left: auto; margin-right: auto;">Small communities
+                shouldn't have to schedule a sales call just to understand the cost of management.</p>
+            <p style="max-width: 800px; margin-left: auto; margin-right: auto;">We keep things completely transparent
+                with pricing you can actually see upfront. You know your community best, so you choose the exact level
+                of support that fits your budget.</p>
+        </div>
+
+        <div class="pricing-v3-grid">
+            <!-- Silver Plan -->
+            <div class="pricing-v3-card silver scroll-item">
+                <h3 class="pricing-v3-name">Silver</h3>
+                <div class="pricing-v3-tagline">Financial Management Essentials</div>
+                <div class="pricing-v3-price-box" style="display: flex; align-items: baseline; gap: 4px;">
+                    <span
+                        style="font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Starting
+                        at</span>
+                    <span class="pricing-v3-price">$14</span>
+                    <span class="pricing-v3-unit">/ unit / month</span>
+                </div>
+                <p class="pricing-v3-desc">A strong foundation of financial management and reporting for self-managed
+                    communities.</p>
+
+                <ul class="pricing-v3-features">
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Financial Management
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Reporting & Transparency
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Payment & Collections
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Online Document Storage
+                    </li>
+
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>Financial & Administrative Support
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>Board Members Education
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>On-Demand Management Services (Hourly)
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>24 * 7 Emergency Maintenance Line
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>Vendor Screening & Contract Negotiations
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>Board Packets & Meeting Minutes
+                    </li>
+                </ul>
+                <a href="#proposal" class="pricing-v3-btn">Learn More</a>
             </div>
 
-            <div class="pricing-grid">
-                <!-- Silver -->
-                <div class="pricing-card scroll-item">
-                    <div class="pricing-header">
-                        <h3 class="pricing-name">Silver</h3>
-                        <p class="pricing-desc">Financial Management Essentials for self-managed communities.</p>
-                        <div class="price-box">
-                            <span class="price-label">Starting at</span>
-                            <span class="price-val">$14</span>
-                            <span class="price-unit">/unit/mo</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Financial bookkeeping</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>HOA dues collection</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Expense tracking &amp; records</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Monthly financial reporting</li>
-                    </ul>
-                    <a href="#proposal" class="btn btn-secondary pricing-cta">Get Started</a>
+            <!-- Gold Plan -->
+            <div class="pricing-v3-card gold scroll-item">
+                <span class="pricing-v3-badge">Most Popular</span>
+                <h3 class="pricing-v3-name">Gold</h3>
+                <div class="pricing-v3-tagline">Financial + Administrative Support</div>
+                <div class="pricing-v3-price-box" style="display: flex; align-items: baseline; gap: 4px;">
+                    <span
+                        style="font-size: 13px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 4px;">Starting
+                        at</span>
+                    <span class="pricing-v3-price">$19</span>
+                    <span class="pricing-v3-unit">/ unit / month</span>
                 </div>
+                <p class="pricing-v3-desc">Financial and administrative support for boards that want a more hands-on
+                    partner.</p>
 
-                <!-- Gold -->
-                <div class="pricing-card popular scroll-item">
-                    <span class="popular-badge">Most Popular</span>
-                    <div class="pricing-header">
-                        <h3 class="pricing-name">Gold</h3>
-                        <p class="pricing-desc">Financial &amp; Administrative support for hands-on partners.</p>
-                        <div class="price-box">
-                            <span class="price-label">Starting at</span>
-                            <span class="price-val">$19</span>
-                            <span class="price-unit">/unit/mo</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg><strong>Everything in Silver</strong></li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Administrative support</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Meeting preparation assistance</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Standard document templates</li>
-                    </ul>
-                    <a href="#proposal" class="btn btn-primary pricing-cta">Get Started</a>
-                </div>
+                <ul class="pricing-v3-features">
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Financial Management
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Reporting & Transparency
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Payment & Collections
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Online Document Storage
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Financial & Administrative Support
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Board Members Education
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>On-Demand Management Services (Hourly)
+                    </li>
 
-                <!-- Platinum -->
-                <div class="pricing-card scroll-item">
-                    <div class="pricing-header">
-                        <h3 class="pricing-name">Platinum</h3>
-                        <p class="pricing-desc">Complete management support for communities that want us to handle every
-                            detail.</p>
-                        <div class="price-box">
-                            <span class="price-label">Contact us</span>
-                            <span class="price-val">Custom</span>
-                            <span class="price-unit">pricing</span>
-                        </div>
-                    </div>
-                    <ul class="pricing-features">
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg><strong>Everything in Gold</strong></li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Complete HOA management</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Dedicated manager support</li>
-                        <li><svg viewBox="0 0 24 24">
-                                <polyline points="20 6 9 17 4 12" />
-                            </svg>Full vendor &amp; admin oversight</li>
-                    </ul>
-                    <a href="#proposal" class="btn btn-secondary pricing-cta">Contact Sales</a>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>24 * 7 Emergency Maintenance Line
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>Vendor Screening & Contract Negotiations
+                    </li>
+                    <li class="pricing-v3-feature disabled">
+                        <div class="pricing-v3-icon cross"><svg viewBox="0 0 24 24">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg></div>Board Packets & Meeting Minutes
+                    </li>
+                </ul>
+                <a href="#proposal" class="pricing-v3-btn">Learn More</a>
+            </div>
+
+            <!-- Platinum Plan -->
+            <div class="pricing-v3-card platinum scroll-item">
+                <h3 class="pricing-v3-name">Platinum</h3>
+                <div class="pricing-v3-tagline">Complete HOA Management</div>
+                <div class="pricing-v3-price-box">
+                    <span class="pricing-v3-price" style="font-size: 34px;">Custom Pricing</span>
                 </div>
+                <p class="pricing-v3-desc">Complete management support for communities that want us to handle every
+                    detail.</p>
+
+                <ul class="pricing-v3-features">
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Financial Management
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Reporting & Transparency
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Payment & Collections
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Online Document Storage
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Financial & Administrative Support
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Board Members Education
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>On-Demand Management Services (Hourly)
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>24 * 7 Emergency Maintenance Line
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Vendor Screening & Contract Negotiations
+                    </li>
+                    <li class="pricing-v3-feature">
+                        <div class="pricing-v3-icon check"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg></div>Board Packets & Meeting Minutes
+                    </li>
+                </ul>
+                <a href="#proposal" class="pricing-v3-btn">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLOSING BANNER -->
+    <section class="closing-banner" id="proposal">
+        <div class="bg-blob-closing" aria-hidden="true"></div>
+        <div class="container closing-container">
+            <h2 class="closing-title scroll-item">Ready for Smarter Community Management?</h2>
+            <p class="closing-desc scroll-item">No matter where your board is starting from, our goal is the same: help
+                your community stay organized, informed, and supported.</p>
+            <div class="btn-group scroll-item">
+                <a href="https://moderncm.org/contact-us/" class="btn btn-primary">Get a Proposal</a>
+                <a href="#pricing" class="btn btn-secondary">See Pricing</a>
             </div>
         </div>
     </section>
@@ -2155,7 +2781,7 @@
                 <div class="section-header process-header-sticky scroll-item">
                     <span class="section-eyebrow">Onboarding Process</span>
                     <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">The Right Support Starts
-                        With<br><span>Understanding Where You Are</span></h2>
+                        With<br><span>Understanding Where You Are Today</span></h2>
                     <p class="section-desc" style="margin: 0; max-width: 100%; text-align: left;">Whether your board
                         needs relief, a better management experience, or guidance through a new community launch, we'll
                         help you take the next step with confidence.</p>
@@ -2193,7 +2819,7 @@
                             <p class="step-desc">We'll gather the information, records, and processes needed to create a
                                 smooth transition experience for both your board and homeowners. Our online community
                                 management services keep records, updates, and communication accessible throughout
-                                onboarding.</p>
+                                the onboarding process.</p>
                         </div>
                     </div>
 
@@ -2221,35 +2847,213 @@
         </div>
     </section>
 
-    <!-- CLOSING BANNER -->
-    <section class="closing-banner" id="proposal">
-        <div class="bg-blob-closing" aria-hidden="true"></div>
-        <div class="container closing-container">
-            <h2 class="closing-title scroll-item">Ready for Smarter Community Management?</h2>
-            <p class="closing-desc scroll-item">No matter where your board is starting from, our goal is the same: help
-                your community stay organized, informed, and supported.</p>
-            <div class="btn-group scroll-item">
-                <a href="#" class="btn btn-primary">Get a Proposal</a>
-                <a href="#pricing" class="btn btn-secondary">See Pricing</a>
+    <!-- TECH STACK SECTION -->
+    <section class="tech-section" id="tech">
+        <style>
+            .tech-section {
+                background: #fcfeff;
+                padding: 100px 0;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .tech-grid {
+                display: grid;
+                grid-template-columns: 1.1fr 0.9fr;
+                gap: 60px;
+                align-items: center;
+            }
+
+            .tech-left {
+                position: relative;
+            }
+
+            .tech-image-wrap {
+                position: relative;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+                border: 1px solid rgba(0, 0, 0, 0.05);
+            }
+
+            .tech-image {
+                width: 100%;
+                height: auto;
+                display: block;
+                aspect-ratio: 4/3;
+                object-fit: cover;
+            }
+
+            .tech-glow {
+                position: absolute;
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(circle, rgba(96, 165, 250, 0.15) 0%, rgba(96, 165, 250, 0) 70%);
+                top: -50px;
+                left: -50px;
+                z-index: -1;
+                filter: blur(20px);
+            }
+
+            .tech-right {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .tech-eyebrow {
+                display: inline-block;
+                font-family: var(--font-display);
+                font-size: 11px;
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 0.2em;
+                color: var(--color-blue);
+                background: #eff6ff;
+                border: 1px solid rgba(40, 114, 250, 0.2);
+                padding: 5px 16px;
+                border-radius: 100px;
+                margin-bottom: 20px;
+            }
+
+            .tech-title {
+                font-family: var(--font-display);
+                font-size: clamp(28px, 4vw, 40px);
+                font-weight: 900;
+                line-height: 1.2;
+                letter-spacing: -0.02em;
+                color: var(--text-primary);
+                margin-bottom: 20px;
+            }
+
+            .tech-title span {
+                color: var(--color-blue);
+            }
+
+            .tech-desc {
+                font-size: 16px;
+                color: var(--text-secondary);
+                line-height: 1.6;
+                margin-bottom: 16px;
+            }
+
+            .tech-features {
+                margin-top: 24px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                width: 100%;
+            }
+
+            .tech-feat-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 14.5px;
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+
+            .tech-feat-icon {
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: #eff6ff;
+                color: var(--color-blue);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+
+            .tech-feat-icon svg {
+                width: 12px;
+                height: 12px;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 3;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+
+            @media (max-width: 900px) {
+                .tech-grid {
+                    grid-template-columns: 1fr;
+                    gap: 40px;
+                }
+
+                .tech-right {
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .tech-features {
+                    justify-items: start;
+                    max-width: 500px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        </style>
+        <div class="container">
+            <div class="tech-grid">
+                <!-- Left side: Image -->
+                <div class="tech-left scroll-item">
+                    <div class="tech-glow"></div>
+                    <div class="tech-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80"
+                            alt="HOA Technology Platform" class="tech-image">
+                    </div>
+                </div>
+
+                <!-- Right side: Content -->
+                <div class="tech-right scroll-item">
+                    <span class="tech-eyebrow">Tech Stack</span>
+                    <h2 class="tech-title">Technology-Driven <span>HOA Management</span></h2>
+                    <p class="tech-desc">Great HOA management isn't just about having the right people. It's about
+                        giving them the right tools. We've built our operations around industry-leading software.</p>
+                    <p class="tech-desc">The result? Faster response times, fewer administrative headaches, better
+                        visibility, and more efficient community management at a cost that makes sense for smaller
+                        associations.</p>
+
+                    <div class="tech-features">
+                        <div class="tech-feat-item">
+                            <div class="tech-feat-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Owner Portal Access</span>
+                        </div>
+                        <div class="tech-feat-item">
+                            <div class="tech-feat-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Real-Time Financials</span>
+                        </div>
+                        <div class="tech-feat-item">
+                            <div class="tech-feat-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Online Dues Payment</span>
+                        </div>
+                        <div class="tech-feat-item">
+                            <div class="tech-feat-icon">
+                                <svg viewBox="0 0 24 24">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </div>
+                            <span>Fast Request Tracking</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-    <!-- FOOTER -->
-    <footer class="mcm-footer scroll-item">
-        <div class="container footer-wrap">
-            <div class="footer-logo">
-                <svg viewBox="0 0 24 24">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
-                </svg>
-                MCM
-            </div>
-            <div class="footer-copy">
-                &copy; 2026 Modern Community Management (MCM). All rights reserved.
-            </div>
-        </div>
-    </footer>
 
     <!-- Back to Top Button -->
     <button id="back-to-top" aria-label="Back to Top">
@@ -2333,6 +3137,83 @@
                 behavior: 'smooth'
             });
         });
+        // Personas Section Scroll Animation
+        const personasSection = document.querySelector('.personas-section');
+        const personaCards = document.querySelectorAll('.persona-card');
+
+        if (personasSection && personaCards.length > 0) {
+            window.addEventListener('scroll', () => {
+                const rect = personasSection.getBoundingClientRect();
+
+                // Calculate scroll progress within the 300vh section
+                // When rect.top is 0, progress is 0. 
+                // When rect.bottom is window.innerHeight, progress is 1.
+                const scrollableDistance = rect.height - window.innerHeight;
+                let scrollProgress = 0;
+
+                if (scrollableDistance > 0) {
+                    scrollProgress = -rect.top / scrollableDistance;
+                }
+
+                if (scrollProgress >= 0 && scrollProgress <= 1) {
+                    let activeIndex = -1;
+                    if (scrollProgress > 0.15 && scrollProgress <= 0.45) {
+                        activeIndex = 0;
+                    } else if (scrollProgress > 0.45 && scrollProgress <= 0.75) {
+                        activeIndex = 1;
+                    } else if (scrollProgress > 0.75) {
+                        activeIndex = 2;
+                    }
+
+                    personaCards.forEach((card, index) => {
+                        if (index === activeIndex) {
+                            card.classList.add('active');
+                        } else {
+                            card.classList.remove('active');
+                        }
+                    });
+                } else if (scrollProgress < 0) {
+                    personaCards.forEach(card => card.classList.remove('active'));
+                } else if (scrollProgress > 1) {
+                    personaCards.forEach(card => card.classList.remove('active'));
+                    personaCards[2].classList.add('active'); // final state
+                }
+            });
+
+            // Trigger once on load
+            window.dispatchEvent(new Event('scroll'));
+        }
+
+        // 5. Counter Animation for Stats
+        const statsSection = document.querySelector('.stats-banner');
+        const statNums = document.querySelectorAll('.stat-num');
+        let statsAnimated = false;
+
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !statsAnimated) {
+                    statsAnimated = true;
+                    statNums.forEach(stat => {
+                        const target = +stat.getAttribute('data-target');
+                        const duration = 2000;
+                        const increment = target / (duration / 16);
+                        let current = 0;
+
+                        const updateCounter = () => {
+                            current += increment;
+                            if (current < target) {
+                                stat.innerText = Math.ceil(current).toLocaleString();
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                stat.innerText = target.toLocaleString();
+                            }
+                        };
+                        updateCounter();
+                    });
+                }
+            }, { threshold: 0.5 });
+            statsObserver.observe(statsSection);
+        }
     </script>
 </body>
 
