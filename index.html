@@ -3622,6 +3622,302 @@
             </div>
         </section>
 
+        <!-- FEATURED REVIEW SECTION -->
+        <section class="featured-review-section" id="featured-review">
+            <style>
+                .featured-review-section {
+                    background-color: #f8fafc;
+                    padding: 100px 0;
+                    border-top: 1px solid var(--border-color);
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .featured-review-container {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 60px;
+                    background: #ffffff;
+                    padding: 60px;
+                    border-radius: 32px;
+                    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+                    border: 1px solid #e2e8f0;
+                }
+
+                @media (max-width: 900px) {
+                    .featured-review-container {
+                        flex-direction: column;
+                        padding: 40px 24px;
+                        gap: 40px;
+                        text-align: center;
+                    }
+                }
+
+                /* ── Left Content (Text) ── */
+                .featured-review-content {
+                    flex: 1;
+                    max-width: 500px;
+                }
+
+                @media (max-width: 900px) {
+                    .featured-review-content {
+                        max-width: 100%;
+                    }
+                }
+
+                .featured-review-section .eyebrow {
+                    display: inline-block;
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 14px;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.15em;
+                    color: #2872fa;
+                    background: #eff6ff;
+                    padding: 8px 18px;
+                    border-radius: 100px;
+                    margin-bottom: 24px;
+                }
+
+                .featured-review-section .headline {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: clamp(32px, 4.5vw, 48px);
+                    font-weight: 900;
+                    color: #0f172a;
+                    line-height: 1.1;
+                    letter-spacing: -0.02em;
+                    margin-bottom: 24px;
+                }
+
+                .featured-review-section .quote {
+                    font-size: 17px;
+                    color: #475569;
+                    margin-bottom: 32px;
+                    position: relative;
+                    font-style: italic;
+                }
+
+                .featured-review-section .quote::before {
+                    content: '"';
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 80px;
+                    color: #cbd5e1;
+                    position: absolute;
+                    top: -20px;
+                    left: -30px;
+                    opacity: 0.5;
+                    z-index: -1;
+                }
+
+                @media (max-width: 900px) {
+                    .featured-review-section .quote::before {
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+
+                .featured-review-section .reviewer-profile {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                }
+                
+                @media (max-width: 900px) {
+                    .featured-review-section .reviewer-profile {
+                        justify-content: center;
+                    }
+                }
+
+                .featured-review-section .avatar-initials {
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 50%;
+                    border: 2px solid #e2e8f0;
+                    background: linear-gradient(135deg, #2872fa 0%, #1e40af 100%);
+                    color: #ffffff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 20px;
+                    font-weight: 750;
+                    text-transform: uppercase;
+                }
+
+                .featured-review-section .reviewer-info {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: left;
+                }
+
+                @media (max-width: 900px) {
+                    .featured-review-section .reviewer-info {
+                        text-align: center;
+                    }
+                }
+
+                .featured-review-section .reviewer-name {
+                    font-family: 'Outfit', sans-serif;
+                    font-size: 18px;
+                    font-weight: 700;
+                    color: #0f172a;
+                }
+
+                .featured-review-section .reviewer-role {
+                    font-size: 14px;
+                    color: #475569;
+                    font-weight: 500;
+                }
+
+                /* ── Right Content (Video) ── */
+                .featured-review-section .featured-video {
+                    flex: none;
+                    width: 320px;
+                    aspect-ratio: 9 / 16;
+                    border-radius: 24px;
+                    overflow: hidden;
+                    background: #000;
+                    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+                    position: relative;
+                    transform: translateZ(0);
+                }
+
+                @media (max-width: 900px) {
+                    .featured-review-section .featured-video {
+                        width: 100%;
+                        max-width: 340px;
+                    }
+                }
+
+                .featured-review-section .featured-video iframe,
+                .featured-review-section .featured-video video {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    object-fit: cover;
+                }
+
+                .featured-review-section .video-placeholder {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+                    z-index: 10;
+                }
+
+                .featured-review-section .featured-video.playing .video-placeholder {
+                    display: none;
+                }
+
+                .featured-review-section .video-thumb {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.4s;
+                }
+
+                .featured-review-section .featured-video:not(.playing):hover .video-thumb {
+                    transform: scale(1.05);
+                }
+
+                .featured-review-section .video-overlay {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.2);
+                    pointer-events: none;
+                }
+
+                .featured-review-section .play-btn {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 64px;
+                    height: 64px;
+                    background: rgba(255, 255, 255, 0.25);
+                    backdrop-filter: blur(8px);
+                    border: 1px solid rgba(255,255,255,0.4);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.4s;
+                }
+
+                .featured-review-section .play-btn svg {
+                    width: 24px;
+                    height: 24px;
+                    fill: #ffffff;
+                    margin-left: 4px;
+                    transition: all 0.4s;
+                }
+
+                .featured-review-section .video-placeholder:hover .play-btn {
+                    background: #2872fa;
+                    border-color: #2872fa;
+                    transform: translate(-50%, -50%) scale(1.15);
+                    box-shadow: 0 0 24px rgba(40, 114, 250, 0.6);
+                }
+                
+                .featured-review-section .shape-1 {
+                    position: absolute;
+                    top: -30px;
+                    right: -30px;
+                    width: 100px;
+                    height: 100px;
+                    background: radial-gradient(circle, #2872fa 10%, transparent 11%);
+                    background-size: 20px 20px;
+                    z-index: -1;
+                    opacity: 0.15;
+                    border-radius: 50%;
+                }
+                
+                .featured-review-section .featured-video-wrapper {
+                    position: relative;
+                }
+            </style>
+            <div class="container">
+                <div class="featured-review-container scroll-item">
+                    <div class="featured-review-content">
+                        <span class="eyebrow">Featured Story</span>
+                        <h2 class="headline">Transforming Our HOA Experience</h2>
+                        <p class="quote">"Jesse and her team have been responsive, organized and proactive in helping us tackle several major projects, including a roof replacement, fire safety upgrades, and improving our overall governance processes."</p>
+                        
+                        <div class="reviewer-profile">
+                            <div class="avatar-initials">MM</div>
+                            <div class="reviewer-info">
+                                <span class="reviewer-name">Marlon Maus</span>
+                                <span class="reviewer-role">President, South Side Court Owners Association</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="featured-review-wrapper">
+                        <div class="shape-1"></div>
+                        <div class="featured-video" id="videoContainer">
+                            <div class="video-placeholder" id="videoPlaceholder" onclick="playVideo()">
+                                <div class="video-overlay"></div>
+                                <div class="play-btn">
+                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                            <video id="reviewVideo" class="video-thumb" src="https://moderncm.org/wp-content/uploads/2026/07/reivew-video.mp4#t=0.1" preload="metadata" playsinline muted></video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- TECH STACK SECTION -->
         <section class="tech-section" id="tech">
             <style>
@@ -3806,6 +4102,28 @@
 
         <!-- STAGGER AND SCROLL SCRIPTS -->
         <script>
+            function playVideo() {
+                const video = document.getElementById('reviewVideo');
+                const container = document.getElementById('videoContainer');
+                if (video && container) {
+                    video.controls = true;
+                    video.muted = false;
+                    
+                    // Play and catch any potential browser autoplay/playback restriction errors
+                    video.play().then(() => {
+                        container.classList.add('playing');
+                    }).catch(error => {
+                        console.error("Video play failed, trying with mute:", error);
+                        // Fallback to muted playback if browser blocks unmuted play calls
+                        video.muted = true;
+                        video.play().then(() => {
+                            container.classList.add('playing');
+                        }).catch(err => {
+                            console.error("Muted video play also failed:", err);
+                        });
+                    });
+                }
+            }
             // 1. Intersection Observer for Scroll Animations
             const scrollItems = document.querySelectorAll('.scroll-item, .fc');
             const scrollObserver = new IntersectionObserver((entries) => {
